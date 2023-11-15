@@ -10,7 +10,7 @@ def loadData():
     #return serpHeader, serpInput
 #############################################################################
 
-def rangeData(serpHeader, serpInput):
+def rangeData(serpHeader,  serpInput):
     import pprint as pp
     minMaxLst = []
     for hIdx,hdr in enumerate(serpHeader):
