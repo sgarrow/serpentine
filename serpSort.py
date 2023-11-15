@@ -80,10 +80,15 @@ if __name__ == '__main__':
     import pprint as pp
 
     serpHdr, serpDatLst = loadData()
+    print('\n Unsorted data loaded.')
     minMaxLst = rangeData(serpHdr, serpDatLst)
+    print(' Data ranged.')
     serpSearchCriteriaLst = genSerpSearchCriteriaLst(minMaxLst)
+    print(' Serpentine counter created.')
     serpSortedDatLst = genSerpSortedDataLst(serpSearchCriteriaLst, serpDatLst)
+    print(' Sorted data created.')
     writeSerpToFile(serpHdr, serpSortedDatLst)
+    print(' Sorted data written to serp_output.txt.\n')
 
     #debug = True
     debug = False
