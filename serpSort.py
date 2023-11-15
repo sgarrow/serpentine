@@ -6,7 +6,7 @@ def loadData():
         serpInputLine = line.strip().split(',')
         serpInput.append([int(x) for x in serpInputLine] )
     f.close
-    return serpHeader, serpInput[0:3]
+    return serpHeader, serpInput[0:11]
     #return serpHeader, serpInput
 #############################################################################
 
@@ -58,6 +58,12 @@ def genSerpSearchCriteriaLst( minMaxLst ):
 
 def genSerpSortedDataLst( serpSearchCriteriaLst, serpData ):
     serpSortedDataLst = []
+    for critera in serpSearchCriteriaLst:
+        for data in serpData:
+            print('***', critera, data)
+            if data == critera:
+                print('append')
+                serpSortedDataLst.append(data)
     return serpSortedDataLst
 #############################################################################    
 
@@ -71,6 +77,15 @@ if __name__ == '__main__':
     serpSortedDataLst = genSerpSortedDataLst(serpSearchCriteriaLst, serpData)
 
     print()
-    pp.pprint(serpSearchCriteriaLst)
+    #pp.pprint(serpSearchCriteriaLst)
     print()
     
+    print()
+    pp.pprint(serpData)
+    print()
+
+    print()
+    pp.pprint(serpSortedDataLst)
+    print()
+
+    print(len(serpData), len(serpSortedDataLst))
