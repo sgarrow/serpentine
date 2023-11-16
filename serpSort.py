@@ -1,6 +1,6 @@
-def loadData():
+def loadData(fName):
     serpDatLst = []
-    f = open('serp_input.csv')
+    f = open(fName)
     serpHdrLst = f.readline().strip().split(',')
     for line in f:
         serpDatLine = line.strip().split(',')
@@ -76,19 +76,57 @@ def writeSerpToFile(serpHdr, serpDatLst):
     return
 #############################################################################
 
+def getFileName():
+    from os import listdir
+    from   os.path import isfile
+
+    filesToDisplay = [f for f in listdir('.') if isfile(f) and f.endswith('.csv')]
+    lclDict = {k: v for k,v in enumerate(filesToDisplay)}
+    sortedKeys = sorted([k for k in lclDict.keys()])
+
+    print()
+    for k  in sortedKeys:
+        print(' {:2d}: {}'.format(k, lclDict[k]) )
+    print('  q: quit\n')
+
+    valid = False
+    while not valid:
+        choice = input('  File to process --> ')
+        if choice == 'q':
+            return 'q'
+        try:
+            choiceInt = int(choice)
+            valid = True
+        except:
+            print('  Invalid choice, try again')
+        else: # there was no exception (conversion to int worked).
+            if choiceInt not in sortedKeys:
+                valid = False
+                print('  Invalid choice, try again')
+
+    return lclDict[choiceInt]
+#############################################################################
+
 if __name__ == '__main__':
     import pprint as pp
 
-    serpHdr, serpDatLst = loadData()
-    print('\n Unsorted data loaded.')
+    inputFile = getFileName()
+    if inputFile == 'q':
+        print('\n  Exiting.\n')
+        exit()
+    else:
+        print( '\n  Processing {}'.format(inputFile))
+
+    serpHdr, serpDatLst = loadData(inputFile)
+    print('\n  Unsorted data loaded.')
     minMaxLst = rangeData(serpHdr, serpDatLst)
-    print(' Data ranged.')
+    print('  Data ranged.')
     serpSearchCriteriaLst = genSerpSearchCriteriaLst(minMaxLst)
-    print(' Serpentine counter created.')
+    print('  Serpentine counter created.')
     serpSortedDatLst = genSerpSortedDataLst(serpSearchCriteriaLst, serpDatLst)
-    print(' Sorted data created.')
+    print('  Sorted data created.')
     writeSerpToFile(serpHdr, serpSortedDatLst)
-    print(' Sorted data written to serp_output.txt.\n')
+    print('  Sorted data written to serp_output.txt.\n')
 
     #debug = True
     debug = False
