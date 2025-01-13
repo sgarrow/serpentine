@@ -1,3 +1,6 @@
+ver = ' v1.0.0 - 12-Jan-2025'
+#############################################################################
+
 def loadData(fName):
     serpDatLst = []
     f = open(fName)
@@ -109,6 +112,7 @@ def getFileName():
 
 if __name__ == '__main__':
     import pprint as pp
+    print(ver)
 
     inputFile = getFileName()
     if inputFile == 'q':
